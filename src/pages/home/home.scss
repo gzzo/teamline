@@ -1,0 +1,47 @@
+.container {
+  //display: flex;
+  //position: relative;
+  width: max-content;
+}
+
+.yearContainer {
+  margin-right: 100px;
+  //flex: 0 0 200px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.constructorContainer {
+  position: relative;
+}
+
+.constructor {
+  display: inline;
+  padding: 10px;
+}
+
+.line {
+  position: absolute;
+  top:0;
+  left: 0;
+  //right: 0;
+  //bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.svg {
+  overflow: visible !important;
+}
+
+.svgPath {
+  stroke: #000;
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.driver {
+  display: inline;
+  margin-left: 20px;
+}
