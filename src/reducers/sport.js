@@ -3,12 +3,22 @@ import { takeLatest } from 'redux-saga/effects'
 import { requestSaga, receiveType } from 'api/v1'
 
 const FETCH_PAIRING = 'pairings/FETCH_PAIRING'
+const HIGHLIGHT_LINE = 'pairings/HIGHLIGHT_LINE'
 
-export const fetchPairing = sport => {
+export const fetchPairing = sportName => {
   return {
     type: FETCH_PAIRING,
-    path: `/pairings/${sport}.json`,
-    sport
+    path: `/pairings/${sportName}.json`,
+    sportName,
+  }
+}
+
+export const highlightLine = (sportName, lineType, lineId) => {
+  return {
+    type: HIGHLIGHT_LINE,
+    sportName,
+    lineType,
+    lineId,
   }
 }
 
@@ -17,21 +27,42 @@ export function* watchFetch() {
 }
 
 const initialState = {
-  sports: {}
+  sports: {},
 }
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case receiveType(FETCH_PAIRING): {
+      return {
+        sports: {
+          ...state.sports,
+          [action.sportName]: {
+            ...state.sports[action.sportName],
+            ...action.response,
+            isLoaded: true,
+          },
+        },
+      }
+    }
+
+    case HIGHLIGHT_LINE: {
+      const sport = state.sports[action.sportName]
+      const line = sport[action.lineType][action.lineId]
 
       return {
         sports: {
           ...state.sports,
-          [action.sport]: {
-            ...state.sports[action.sport],
-            ...action.response,
-          }
-        }
+          [action.sportName]: {
+            ...sport,
+            [action.lineType]: {
+              ...sport[action.lineType],
+              [action.lineId]: {
+                ...line,
+                isHighlighted: !line.isHighlighted,
+              },
+            },
+          },
+        },
       }
     }
 

@@ -1,0 +1,24 @@
+.line {
+  position: absolute;
+  top:0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.svg {
+  overflow: visible !important;
+}
+
+.svgPath {
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 1;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.svgPath_highlighted {
+  stroke-width: 2;
+  stroke: rgba(0, 0, 0, 0.7);
+}
