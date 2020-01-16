@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 6px 6px 12px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.score {
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 1px 3px;
+  margin-left: 5px;
+  display: inline;
+  font-size: 10px;
+  line-height: 10px;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
+}
+
+.score_first {
+  background-color: #F2D500;
+}
+
+.score_second {
+  background-color: #A7A7AD;
+}
+
+.score_third {
+  background-color: #A77044;
+}

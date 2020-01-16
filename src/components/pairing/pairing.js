@@ -18,16 +18,16 @@ class Pairing extends React.Component {
     this.updatePairings()
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.sport !== this.props.sport) {
-      this.updatePairings()
-    }
-  }
-
   componentDidMount() {
     this.setState({
       rendered: true,
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.sport !== this.props.sport) {
+      this.updatePairings()
+    }
   }
 
   updatePairings() {

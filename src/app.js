@@ -20,7 +20,10 @@ class App extends React.Component {
               name="viewport"
               content="width=device-width, initial-scale=1"
             />
-            <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:700|Roboto:400,700&display=swap" rel="stylesheet" />
+            <link
+              href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700&display=swap"
+              rel="stylesheet"
+            />
           </Helmet>
           <Switch>
             <Route path="/sport/:sportName" component={SportPage} />

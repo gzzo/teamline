@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import { Line } from 'components/line'
 import { highlightLine, selectLine } from 'reducers/sport'
+import { NameContainer } from 'components/nameContainer'
 
 import css from './driver.scss'
 
@@ -35,21 +36,23 @@ class Driver extends React.Component {
 
     const previousYear = driverEdge[yearKeys[yearIndex - 1]]
 
-    const driverClasses = classNames(css.driver, {
+    const driverClasses = classNames({
       [css.driver_highlighted]: isHighlighted || isSelected,
     })
 
     return (
       <div key={driverId} className={css.driverContainer}>
-        <div
+        <NameContainer
           className={driverClasses}
           onClick={selectLine}
           onMouseOut={highlightLine}
           onMouseOver={highlightLine}
-          ref={driverRef}
+          innerRef={driverRef}
+          position={position}
+          points={points}
         >
-          {forename} {surname} #{position} - {points}
-        </div>
+          {forename} {surname}
+        </NameContainer>
         {rendered &&
           previousYear &&
           _.map(previousYear, (previousRef, previousConstructorId) => (
@@ -76,7 +79,7 @@ const mapStateToProps = (state, ownProps) => {
     forename,
     surname,
     isHighlighted,
-    isSelected
+    isSelected,
   }
 }
 

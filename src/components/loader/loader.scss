@@ -1,0 +1,83 @@
+$loaderSize: 100px;
+$knobSize: 20px;
+$needleWidth: 3px;
+$needleHeight: 40px;
+
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.loader {
+  background-color: #333;
+  border-top-left-radius: $loaderSize / 2;
+  border-top-right-radius: $loaderSize / 2;
+  width: $loaderSize;
+  height: $loaderSize / 2;
+
+  margin-bottom: 10px;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.loader::before {
+  content: ' ';
+  background-color: red;
+  position: absolute;
+  width: $needleWidth;
+  height: $needleHeight;
+
+  left: $loaderSize / 2 - $needleWidth / 2;
+  top: $knobSize / 2;
+
+  animation: speedometer 3s infinite ease-in-out;
+  transform-origin: 50% 100%;
+}
+
+.loader::after {
+  content: ' ';
+  background-color: white;
+  position: absolute;
+  border-radius: $knobSize / 2;
+  top: $loaderSize / 2 - $knobSize /2;
+  left: $loaderSize / 2 - $knobSize /2;
+  width: $knobSize;
+  height: $knobSize;
+}
+
+@keyframes speedometer {
+  0% {
+    transform: rotate(-40deg);
+  }
+  10% {
+    transform: rotate(-10deg);
+  }
+  20% {
+    transform: rotate(40deg);
+  }
+  30% {
+    transform: rotate(80deg);
+  }
+  40% {
+    transform: rotate(40deg);
+  }
+  60% {
+    transform: rotate(85deg);
+  }
+  70% {
+    transform: rotate(30deg);
+  }
+  90% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(-40deg);
+  }
+}

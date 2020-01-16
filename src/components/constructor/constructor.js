@@ -4,27 +4,29 @@ import { connect } from 'react-redux'
 
 import { Line } from 'components/line'
 import { Driver } from 'components/driver'
+import { highlightLine, selectLine } from 'reducers/sport'
+import { NameContainer } from 'components/nameContainer'
 
 import css from './constructor.scss'
-
 
 class Constructor extends React.Component {
   render() {
     const {
-      constructors,
       constructorData,
       constructorEdges,
       constructorId,
       driverEdges,
+      highlightLine,
+      isHighlighted,
+      isSelected,
+      name,
       rendered,
+      selectLine,
       sportName,
       year,
     } = this.props
 
     const { drivers, points, position } = constructorData
-
-    const constructor = constructors[constructorId]
-    const { name } = constructor
 
     const constructorEdge = constructorEdges[constructorId]
     const constructorRef = constructorEdge[year]
@@ -34,15 +36,35 @@ class Constructor extends React.Component {
 
     const previousYear = constructorEdge[yearKeys[yearIndex - 1]]
 
+    const sortedDrivers = _.sortBy(
+      _.toPairs(drivers),
+      ([_driverId, driverData]) => driverData.position || 100
+    )
+
     return (
       <div className={css.container}>
         <div className={css.constructorContainer}>
-        <div ref={constructorRef} className={css.constructor}>
-          {name} #{position} - {points}
-        </div>
+          <NameContainer
+            innerRef={constructorRef}
+            className={css.constructor}
+            onClick={selectLine}
+            onMouseOut={highlightLine}
+            onMouseOver={highlightLine}
+            position={position}
+            points={points}
+          >
+            {name}
+          </NameContainer>
+          {rendered && previousYear && (
+            <Line
+              to={constructorRef}
+              from={previousYear}
+              isHighlighted={isSelected || isHighlighted}
+            />
+          )}
         </div>
         <div className={css.driversContainer}>
-          {_.map(drivers, (driverData, driverId) => (
+          {_.map(sortedDrivers, ([driverId, driverData]) => (
             <Driver
               constructorId={constructorId}
               driverData={driverData}
@@ -55,25 +77,34 @@ class Constructor extends React.Component {
             />
           ))}
         </div>
-        {rendered && previousYear && (
-          <Line
-            to={constructorRef}
-            from={previousYear}
-            isConstructor
-          />
-        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { sportName } = ownProps
+  const { sportName, constructorId } = ownProps
   const sport = state.sport.sports[sportName]
 
+  const constructor = sport.constructors[constructorId]
+  const { name, isHighlighted, isSelected } = constructor
+
   return {
-    constructors: sport.constructors,
+    name,
+    isHighlighted,
+    isSelected,
   }
 }
 
-export default connect(mapStateToProps)(Constructor)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { sportName, constructorId } = ownProps
+
+  return {
+    highlightLine: () =>
+      dispatch(highlightLine(sportName, 'constructors', constructorId)),
+    selectLine: () =>
+      dispatch(selectLine(sportName, 'constructors', constructorId)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Constructor)

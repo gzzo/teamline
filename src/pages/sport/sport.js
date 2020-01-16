@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchPairing } from 'reducers/sport'
 import { Page } from 'components/page'
 import { Pairing } from 'components/pairing'
+import { Loader } from 'components/loader'
 
 class SportPage extends React.Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class SportPage extends React.Component {
     const { sportIsLoaded, sportName } = this.props
 
     if (!sportIsLoaded) {
-      return 'loading'
+      return <Loader />
     }
 
     return (
