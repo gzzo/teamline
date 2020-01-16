@@ -4,3 +4,4 @@ stats.json
 dist/*
 !dist/_redirects
 !dist/pairings
+.idea
