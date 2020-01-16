@@ -4,15 +4,24 @@ import classNames from 'classnames'
 import css from './line.scss'
 
 class Line extends React.PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.updateRects = this.updateRects.bind(this)
+    this.updateRects()
+  }
+
+  updateRects() {
+    const { from, to } = this.props
+
+    this.fromRect = from.current.getBoundingClientRect()
+    this.toRect = to.current.getBoundingClientRect()
+  }
+
+
   render() {
-    const { from, to, isHighlighted } = this.props
-
-    if (!from || !to) {
-      return null
-    }
-
-    const fromRect = from.current.getBoundingClientRect()
-    const toRect = to.current.getBoundingClientRect()
+    const { props, fromRect, toRect } = this
+    const { isHighlighted } = props
 
     const startX = fromRect.right - toRect.left
     const startY = fromRect.y - toRect.y + fromRect.height / 3
