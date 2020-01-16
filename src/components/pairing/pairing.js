@@ -76,7 +76,7 @@ class Pairing extends React.Component {
 
           return (
             <div className={css.yearContainer} key={year}>
-              <div>{year}</div>
+              <div className={css.year}>{year}</div>
               {_.map(sortedConstructors, ([constructorId, constructorData]) => (
                 <Constructor
                   {...this.props}

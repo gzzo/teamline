@@ -32,12 +32,16 @@ class Constructor extends React.Component {
     const yearKeys = Object.keys(constructorEdge)
     const yearIndex = _.indexOf(yearKeys, year)
 
+    const previousYear = constructorEdge[yearKeys[yearIndex - 1]]
+
     return (
-      <div className={css.constructorContainer}>
+      <div className={css.container}>
+        <div className={css.constructorContainer}>
         <div ref={constructorRef} className={css.constructor}>
           {name} #{position} - {points}
         </div>
-        <div>
+        </div>
+        <div className={css.driversContainer}>
           {_.map(drivers, (driverData, driverId) => (
             <Driver
               constructorId={constructorId}
@@ -51,10 +55,11 @@ class Constructor extends React.Component {
             />
           ))}
         </div>
-        {false && rendered && yearIndex > 0 && (
+        {rendered && previousYear && (
           <Line
             to={constructorRef}
-            from={constructorEdge[yearKeys[yearIndex - 1]]}
+            from={previousYear}
+            isConstructor
           />
         )}
       </div>

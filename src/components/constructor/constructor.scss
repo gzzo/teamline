@@ -1,9 +1,27 @@
-.constructorContainer {
+.container {
   position: relative;
+  border: 1px solid #BBBEBD;
+  border-radius: 5px;
+  padding: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background-color: #EDECEB;
+}
+
+.constructorContainer {
+  background-color: white;
 }
 
 .constructor {
   display: inline;
   padding: 10px;
   font-weight: 700;
+  font-family: 'Roboto Mono', monospace;
+  line-height: 26px;
+}
+
+.driversContainer {
+  border-top: 1px solid #EDECEB;
+  padding: 6px 0;
+  background-color: white;
 }

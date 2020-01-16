@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 
 import { Line } from 'components/line'
-import { highlightLine } from 'reducers/sport'
+import { highlightLine, selectLine } from 'reducers/sport'
 
 import css from './driver.scss'
 
@@ -15,12 +15,14 @@ class Driver extends React.Component {
       driverData,
       driverEdges,
       driverId,
-      highlightLine,
-      rendered,
-      year,
       forename,
-      surname,
+      highlightLine,
       isHighlighted,
+      isSelected,
+      rendered,
+      selectLine,
+      surname,
+      year,
     } = this.props
 
     const { points, position } = driverData
@@ -34,13 +36,14 @@ class Driver extends React.Component {
     const previousYear = driverEdge[yearKeys[yearIndex - 1]]
 
     const driverClasses = classNames(css.driver, {
-      [css.driver_highlighted]: isHighlighted,
+      [css.driver_highlighted]: isHighlighted || isSelected,
     })
 
     return (
       <div key={driverId} className={css.driverContainer}>
         <div
           className={driverClasses}
+          onClick={selectLine}
           onMouseOut={highlightLine}
           onMouseOver={highlightLine}
           ref={driverRef}
@@ -54,7 +57,7 @@ class Driver extends React.Component {
               to={driverRef}
               key={previousConstructorId}
               from={previousRef}
-              isHighlighted={isHighlighted}
+              isHighlighted={isHighlighted || isSelected}
             />
           ))}
       </div>
@@ -67,12 +70,13 @@ const mapStateToProps = (state, ownProps) => {
 
   const sport = state.sport.sports[sportName]
   const driver = sport.drivers[driverId]
-  const { forename, surname, isHighlighted } = driver
+  const { forename, surname, isHighlighted, isSelected } = driver
 
   return {
     forename,
     surname,
     isHighlighted,
+    isSelected
   }
 }
 
@@ -82,6 +86,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     highlightLine: () =>
       dispatch(highlightLine(sportName, 'drivers', driverId)),
+    selectLine: () => dispatch(selectLine(sportName, 'drivers', driverId)),
   }
 }
 

@@ -18,16 +18,16 @@ class Line extends React.PureComponent {
     this.toRect = to.current.getBoundingClientRect()
   }
 
-
   render() {
     const { props, fromRect, toRect } = this
-    const { isHighlighted } = props
+    const { isHighlighted, isConstructor } = props
 
     const startX = fromRect.right - toRect.left
-    const startY = fromRect.y - toRect.y + fromRect.height / 3
+    const startY =
+      fromRect.y - toRect.y + fromRect.height / (isConstructor ? 2 : 3)
 
     const endX = 0
-    const endY = toRect.height / 3
+    const endY = toRect.height / (isConstructor ? 2 : 3)
 
     const startControlX = endX
     const startControlY = startY
@@ -35,12 +35,16 @@ class Line extends React.PureComponent {
     const endControlX = startX
     const endControlY = endY
 
+    const lineClasses = classNames(css.line, {
+      [css.line_highlighted]: isHighlighted
+    })
+
     const pathClasses = classNames(css.svgPath, {
       [css.svgPath_highlighted]: isHighlighted,
     })
 
     return (
-      <div className={css.line}>
+      <div className={lineClasses}>
         <svg className={css.svg}>
           <path
             d={`M${startX},${startY} C${startControlX},${startControlY} ${endControlX},${endControlY} ${endX},${endY}`}
