@@ -2,4 +2,5 @@ node_modules
 yarn-error.log
 stats.json
 dist
+!dist/_redirects
 !dist/pairings
