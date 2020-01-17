@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet'
 import { ConnectedRouter } from 'connected-react-router'
 
 import { SportPage } from 'pages/sport'
+import { Header } from 'components/header'
 
 import 'sanitize.css'
 import './app.scss'
@@ -25,6 +26,7 @@ class App extends React.Component {
               rel="stylesheet"
             />
           </Helmet>
+          <Header />
           <Switch>
             <Route path="/sport/:sportName" component={SportPage} />
           </Switch>
