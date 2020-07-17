@@ -1,6 +1,7 @@
 import argparse
 import csv
 import os
+import arrow
 
 import json
 
@@ -91,7 +92,11 @@ def organize_standings(standings, key, races, last_races):
     points_by_year = dict()
 
     for standing_id, standing in standings.items():
-        race = races[standing["raceId"]]
+        try:
+            race = races[standing["raceId"]]
+        except KeyError:
+            continue
+
         year = race["year"]
 
         if last_races[year] != standing["raceId"]:
@@ -116,6 +121,10 @@ def find_last_races(races):
 
         current_round = int(race["round"])
         previous_max_round = max_round_by_year.get(year, 0)
+
+        if arrow.get(race["date"]) > arrow.get():
+            continue
+
         if current_round > previous_max_round:
             max_round_by_year[year] = current_round
             last_races_by_year[year] = race_id
