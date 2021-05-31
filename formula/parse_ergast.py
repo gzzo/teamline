@@ -99,6 +99,9 @@ def organize_standings(standings, key, races, last_races):
 
         year = race["year"]
 
+        if year == '2021':
+            pass
+
         if last_races[year] != standing["raceId"]:
             continue
 
@@ -118,6 +121,9 @@ def find_last_races(races):
 
     for race_id, race in races.items():
         year = race["year"]
+
+        if arrow.get(race["date"]) > arrow.now():
+            continue
 
         current_round = int(race["round"])
         previous_max_round = max_round_by_year.get(year, 0)

@@ -65,9 +65,15 @@ class Pairing extends React.Component {
     const { sportName, pairings } = props
     const { rendered } = state
 
+    const sortedPairings = _.orderBy(
+      _.map(pairings, (constructorIds, year) => ({ constructorIds, year })),
+      'year',
+      'desc'
+    )
+
     return (
       <div className={css.container}>
-        {_.map(pairings, (constructorIds, year) => {
+        {_.map(sortedPairings, ({ constructorIds, year }) => {
           const sortedConstructors = _.sortBy(
             _.toPairs(constructorIds),
             ([_constructorId, constructorData]) =>

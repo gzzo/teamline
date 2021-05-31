@@ -26,11 +26,11 @@ class Line extends React.PureComponent {
       return null
     }
 
-    const startX = fromRect.right - toRect.left
-    const startY = fromRect.y - toRect.y + fromRect.height / 2
+    const startX = fromRect.width
+    const startY = fromRect.height / 2
 
-    const endX = 0
-    const endY = toRect.height / 2
+    const endX = fromRect.width + toRect.left - fromRect.right
+    const endY = toRect.y - fromRect.y + fromRect.height / 2
 
     const startControlX = endX
     const startControlY = startY

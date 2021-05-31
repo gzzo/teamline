@@ -57,8 +57,8 @@ class Constructor extends React.Component {
           </NameContainer>
           {rendered && previousYear && (
             <Line
-              to={constructorRef}
-              from={previousYear}
+              to={previousYear}
+              from={constructorRef}
               isHighlighted={isSelected || isHighlighted}
             />
           )}

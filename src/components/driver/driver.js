@@ -55,11 +55,11 @@ class Driver extends React.Component {
         </NameContainer>
         {rendered &&
           previousYear &&
-          _.map(previousYear, (previousRef, previousConstructorId) => (
+          _.map(previousYear, (nextRef, nextConstructorId) => (
             <Line
-              to={driverRef}
-              key={previousConstructorId}
-              from={previousRef}
+              to={nextRef}
+              key={nextConstructorId}
+              from={driverRef}
               isHighlighted={isHighlighted || isSelected}
             />
           ))}
